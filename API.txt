@@ -1,0 +1,38 @@
+DEFAULT
+    getallcustomer
+        - Get a list of customer
+
+    getallcategory
+        - Get a list of category
+
+    getallitem
+        - Get a list of item
+        - Post order detail, will return list of item id selected
+
+    getallorder
+        - Get a list of order with details
+
+    getalldetail
+        - Get all detail
+
+CUSTOM
+    getallorderbydate/<str:date>/
+        - Get a list of order with details, with specific date, YYYY-MM-DD 
+    
+    getlistdateorder
+        - Get a list of date
+
+    gettotaldetail/<str:date>
+        - Get item, total item, total customer that order
+
+    gettotalpricebydate/<str:date>
+        - Get total price, YYYY-MM-DD
+
+    Update order
+        - orid is negative, meaning remove whole order including detail and detail_toping, like orid = 9, so -9 will remove
+        - detail is negative, meaning remove whole detail including detail_toping, like detail_id = 9, so -9 will remove
+        - topping, if detail_id == -1 -> remove
+
+        order update -> note, ispickup, time (orpickup), ordate
+        detail update -> note, quality
+        topping update -> quality

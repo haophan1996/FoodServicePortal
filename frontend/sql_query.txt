@@ -1,0 +1,343 @@
+CREATE TABLE customer(
+	cusid SERIAL PRIMARY KEY,
+	cusname VARCHAR(255),
+    cusphone INT,
+	cusnote TEXT
+);
+
+CREATE TABLE category(
+	cagid SERIAL PRIMARY KEY,
+	cagname VARCHAR(255)
+);
+
+CREATE TABLE item(
+	itemid SERIAL PRIMARY KEY,
+	cag_id INT REFERENCES category (cagid),
+	itemname VARCHAR(255),
+	itemprice DECIMAL(5,2),
+	itemnote TEXT
+);
+
+CREATE Table topping (
+    topid SERIAL PRIMARY KEY,
+    cag_id INT REFERENCES category (cagid),
+    topname VARCHAR(255),
+    topprice DECIMAL(5,2)
+);
+
+CREATE TABLE orders(
+	orid SERIAL PRIMARY KEY,
+	cus_id INT REFERENCES customer (cusid),
+	ordate DATE NOT NULL,
+	orpickup VARCHAR(50),
+	orextraprice DECIMAL(5,2)
+);
+
+CREATE TABLE detail(
+	detailid SERIAL PRIMARY KEY,
+	or_id INT REFERENCES orders (orid),
+	cag_id INT REFERENCES category (cagid),
+	item_id INT REFERENCES item (itemid),
+	detailnote TEXT,
+	detailquality INT
+    firm_price DECIMAL(5,2)
+);
+
+CREATE TABLE detail_topping (
+    detailtopid SERIAL PRIMARY KEY
+    detail_id INT REFERENCES detail (detailid),
+    top_id INT REFERENCES topping (topid),
+    topprice DECIMAL(5,2),
+    topquality INT, 
+);
+
+-- Extra COLUMN for orders
+-- ALTER TABLE orders ADD COLUMN orextraprice DECIMAL(5,2) DEFAULT '0.00';
+
+-- ALTER TABLE detail RENAME COLUMN detail_note to detailnote;
+-- ALTER TABLE detail RENAME COLUMN detailqualityitem to detailquality;
+
+-- Add customer
+INSERT INTO customer (cusname) VALUES ('Thu Nguyen');
+INSERT INTO customer (cusname) VALUES ('Ngoc Châu');
+INSERT INTO customer (cusname) VALUES ('Sarah Le');
+INSERT INTO customer (cusname) VALUES ('Thiên Nhi');
+INSERT INTO customer (cusname) VALUES ('Infinity Love'); 
+INSERT INTO customer (cusname) VALUES ('Trần Trân');
+INSERT INTO customer (cusname) VALUES ('Linh Đặng');
+INSERT INTO customer (cusname) VALUES ('Đang N Quynh');
+INSERT INTO customer (cusname) VALUES ('Hong Vuong');
+INSERT INTO customer (cusname) VALUES ('Anh Thu Ton Nu');
+INSERT INTO customer (cusname) VALUES ('Thao Ha');
+INSERT INTO customer (cusname) VALUES ('Casey Ng');
+INSERT INTO customer (cusname) VALUES ('Phuong Tran');
+INSERT INTO customer (cusname) VALUES ('Ruby nguyen');
+INSERT INTO customer (cusname) VALUES ('Yen K Huynh');
+INSERT INTO customer (cusname) VALUES ('Quynh H Phan');
+INSERT INTO customer (cusname) VALUES ('Dung Luu');
+INSERT INTO customer (cusname) VALUES ('Chế Lộc');
+INSERT INTO customer (cusname) VALUES ('Pham Nha Mchi');
+INSERT INTO customer (cusname) VALUES ('3483');
+INSERT INTO customer (cusname) VALUES ('Binh Nguyen');
+INSERT INTO customer (cusname) VALUES ('Jade Nguyen');
+INSERT INTO customer (cusname) VALUES ('Anh Trần');
+INSERT INTO customer (cusname) VALUES ('kristine');
+INSERT INTO customer (cusname) VALUES ('Thy');
+
+--ADD category
+INSERT INTO category (cagname) VALUES ('bltm');
+INSERT INTO category (cagname) VALUES ('tra_sua');
+INSERT INTO category (cagname) VALUES ('sua_chua');
+INSERT INTO category (cagname) VALUES ('tra');
+INSERT INTO category (cagname) VALUES ('banh');
+
+
+-- ADD item into item (bltm)
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (1, '8 in', 32.00);
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (1, '8 in KSA', 35.00);
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (1, '10 in', 42.00);
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (1, '10 in KSA', 45.00);
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (1, '12 in', 65.00);
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (1, '12 in KSA', 70.00);
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (1, '6 cup', 14.00);
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (1, '6 cup KSA', 15.00);
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (1, '12 cup', 28.00);
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (1, '12 cup KSA', 30.00);
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (1, 'togo', 16.00);
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (1, 'togo KSA', 18.00);
+
+-- ADD item into item (tra_sua)
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (2, 'thái xanh', 6.00);
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (2, 'hồng lài', 6.00);
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (2, 'olong lài', 6.00);
+
+-- ADD item into item (sua chua)
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (3, 'uống', 6.00);
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (3, 'nếp cẩm', 6.00);
+
+-- ADD item into item (tra)
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (4, 'trà nhãn', 7.00);
+
+-- ADD item into item (banh)
+INSERT INTO item (cag_id, itemname, itemprice) VALUES (5, 'flan', 16.00);
+
+
+
+-- ADD order
+INSERT INTO orders (cus_id,ordate, orpickup) VALUES (1,'2024-03-19', '10h');
+INSERT INTO orders (cus_id,ordate, orpickup) VALUES (2,'2024-03-19', '10h');
+INSERT INTO orders (cus_id,ordate, orpickup) VALUES (3,'2024-03-19', '10:30');
+INSERT INTO orders (cus_id,ordate) VALUES (5,'2024-03-19');
+INSERT INTO orders (cus_id,ordate) VALUES (4,'2024-03-19');
+INSERT INTO orders (cus_id,ordate, orpickup) VALUES (6,'2024-03-19', '7h');
+INSERT INTO orders (cus_id,ordate) VALUES (7,'2024-03-19');
+INSERT INTO orders (cus_id,ordate) VALUES (8,'2024-03-19');
+INSERT INTO orders (cus_id,ordate) VALUES (9,'2024-03-19');
+INSERT INTO orders (cus_id,ordate, orpickup) VALUES (10,'2024-03-19', '4h');
+INSERT INTO orders (cus_id,ordate) VALUES (11,'2024-03-19');
+INSERT INTO orders (cus_id,ordate, orpickup) VALUES (12,'2024-03-19', '10h');
+INSERT INTO orders (cus_id,ordate, orpickup) VALUES (13,'2024-03-19', '1h');
+INSERT INTO orders (cus_id,ordate) VALUES (14,'2024-03-19');
+INSERT INTO orders (cus_id,ordate) VALUES (15,'2024-03-19');
+INSERT INTO orders (cus_id,ordate) VALUES (16,'2024-03-19');
+INSERT INTO orders (cus_id,ordate) VALUES (17,'2024-03-19');
+INSERT INTO orders (cus_id,ordate) VALUES (18,'2024-03-19');
+INSERT INTO orders (cus_id,ordate) VALUES (19,'2024-03-19');
+INSERT INTO orders (cus_id,ordate) VALUES (20,'2024-03-19');
+INSERT INTO orders (cus_id,ordate) VALUES (21,'2024-03-19');
+INSERT INTO orders (cus_id,ordate) VALUES (22,'2024-03-19');
+INSERT INTO orders (cus_id,ordate) VALUES (23,'2024-03-19');
+INSERT INTO orders (cus_id,ordate) VALUES (24,'2024-03-19');
+INSERT INTO orders (cus_id,ordate) VALUES (25,'2024-03-19');
+
+--ADD detail thu nguyen (1)
+INSERT INTO detail (or_id, item_id, detailquality,detailnote) VALUES (1, 6, 1,'Không nhân');
+
+--ADD detail ngon chau (2)
+INSERT INTO detail (or_id, item_id, detailquality,detailnote) VALUES (2, 2, 1,' ');
+INSERT INTO detail (or_id, item_id, detailquality,detailnote) VALUES (2, 6, 1,' ');
+
+--ADD detail sarah le (3)
+INSERT INTO detail (or_id, item_id, detailquality,detailnote) VALUES (3, 8, 1,'sốt vàng');
+INSERT INTO detail (or_id, item_id, detailquality,detailnote) VALUES (3, 17, 2,' ');
+
+
+
+-- GET CUSTOMER ORDER BY SPECIFIC DATE 
+SELECT
+    o.orid,
+    c.cusname,
+    o.ordate,
+    SUM(d.firm_price * d.detailquality) as price, 
+    ARRAY_AGG(
+        JSON_BUILD_OBJECT(
+            'detailid', d.detailid,
+            'cagtogery', cag.cagname,
+            'cagtogery_id', cag.cagid,
+            'orpickup', o.orpickup,
+            'itemname', i.itemname,
+            'price', d.firm_price,
+            'note', d.detailnote
+        ) ORDER BY cag.cagname ASC
+    ) AS "orders"  
+FROM
+    orders o 
+INNER JOIN
+    customer c ON o.cus_id = c.cusid
+INNER JOIN
+    detail d ON o.orid = d.or_id
+INNER JOIN
+    item i ON d.item_id = i.itemid
+INNER JOIN
+    category cag ON cag.cagid = i.cag_id
+WHERE o.ordate = '2024-03-19'
+GROUP BY
+    c.cusname, o.ordate, o.orid
+ORDER BY
+    c.cusname;
+
+
+-- GET TOTAL PRICE BY DATE
+SELECT
+    SUM(d.detailquality * i.itemprice) as price
+FROM
+    detail d
+INNER JOIN
+    orders o on d.or_id = o.orid
+INNER JOIN
+    item i on d.item_id = i.itemid
+WHERE o.ordate = '2024-03-19'
+
+
+-- Get top sale item by date
+SELECT
+    i.itemname,  
+    cag.cagname,
+    sum(d.detailquality) as "total_quality"
+FROM
+    detail d
+INNER JOIN
+    item i on i.itemid = d.item_id
+INNER JOIN
+    category cag on cag.cagid = i.cag_id
+INNER JOIN
+    orders o on o.orid = d.or_id
+WHERE o.ordate = '2024-03-19'
+GROUP BY
+    d.item_id, i.itemname, cag.cagname
+ORDER BY "total_quality" DESC
+
+
+
+
+-- GET CUSTOMER MOST ORDER BY ITEM QUALITY
+SELECT
+    sum(d.detailquality) as "item_order", o.cus_id, c.cusname
+FROM 
+    detail d
+INNER JOIN
+    orders o on o.orid = d.or_id
+INNER JOIN
+    customer c on c.cusid = o.cus_id
+GROUP BY
+    o.cus_id, c.cusname
+ORDER BY "item_order" DESC
+
+
+-- GET TOTAL ITEM, TOTAL CUSTOMER ORDER BY DATE
+SELECT
+    i.itemname,  
+    cag.cagname,
+    d.firm_price,
+    sum(d.detailquality) as total_quality,
+    count(distinct o.cus_id) as total_customers
+FROM
+    detail d
+INNER JOIN
+    item i on i.itemid = d.item_id
+INNER JOIN
+    category cag on cag.cagid = i.cag_id
+INNER JOIN
+    orders o on o.orid = d.or_id
+WHERE o.ordate = '2024-03-19'
+GROUP BY
+    d.item_id, i.itemname, cag.cagname, d.firm_price
+ORDER BY total_quality DESC;
+
+
+
+
+
+Create function get detail
+CREATE OR REPLACE FUNCTION get_order_details(p_order_date DATE)
+RETURNS JSON AS
+$$
+DECLARE
+    result JSON;
+BEGIN
+    SELECT json_agg(json_build_object(
+        'orid', subquery.orid,
+        'cusid', subquery.cusid,
+        'cus_name', subquery.cusname, 
+        'ordate', subquery.ordate,
+        'orpickup', subquery.orpickup,
+        'ispickup', subquery.ispickup,
+        'total_price', subquery.total_price,
+        'details', subquery.order_details
+    )) INTO result
+    FROM (
+        SELECT
+            o.orid,
+            c.cusname,
+            o.orpickup,
+            c.cusid,
+            o.ordate,
+            o.ispickup,
+            SUM(d.firm_price * d.detailquality + COALESCE(dt.toppings_price, 0)) as total_price,
+            json_agg(json_build_object(
+                'detailid', d.detailid,
+                'or_id', o.orid,
+                'item_id', i.itemid,
+                'item_name', i.itemname,
+                'cag_id', cag.cagid,
+                'cag_name', cag.cagname,
+                'detailnote', d.detailnote, 
+                'detailquality', d.detailquality,
+                'firm_price', d.firm_price, 
+                'toppings', COALESCE(dt.toppings, '[]'::json)
+            ) ORDER BY cag.cagname ASC) AS order_details
+        FROM
+            orders o 
+        INNER JOIN
+            customer c ON o.cus_id = c.cusid
+        INNER JOIN
+            detail d ON o.orid = d.or_id
+        INNER JOIN
+            item i ON d.item_id = i.itemid
+        INNER JOIN
+            category cag ON cag.cagid = i.cag_id
+		LEFT JOIN LATERAL (
+            SELECT
+                json_agg(json_build_object(
+                    'detailtopid', dt.detailtopid, 
+                    'detail_id', dt.detail_id,
+                    'top_id', t.topid,
+                    'top_name', t.topname,
+                    'topprice', dt.topprice,
+                    'topquality', dt.topquality
+                ) ORDER BY dt.detailtopid ASC) AS toppings,
+                SUM(dt.topprice * dt.topquality) as toppings_price
+            FROM detail_topping dt 
+            JOIN topping t ON dt.top_id = t.topid
+            WHERE dt.detail_id = d.detailid
+        ) AS dt ON true
+        WHERE
+			o.ordate = COALESCE(p_order_date, o.ordate) -- Filter by date if provided
+        GROUP BY
+            o.orid, c.cusid, o.ordate
+    ) AS subquery;
+
+    RETURN result;
+END;
+$$
+LANGUAGE plpgsql;

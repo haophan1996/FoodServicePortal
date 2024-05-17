@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+/* Custom styles for headings and links */
+h1 {
+    @apply text-2xl;
+    @apply font-semibold;
+}
+
+h2 {
+    @apply text-xl;
+}
+
+h3 {
+    @apply text-lg;
+}
+
+a {
+    @apply text-blue-600 underline;
+}
+
+.rgb-text-color {
+    --text-color-rgb: 255, 0, 0; /* RGB values */
+    color: rgb(var(--text-color-rgb));
+}
+
+/* Define the fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Apply the fade-in animation */
+.animate-fade-in {
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes scaleBackgroundColor {
+    0% {
+        transform: scale(0.9); /* Start with a slightly smaller scale */
+    }
+    100% {
+        transform: scale(1); /* End with the original scale */
+    }
+}
+
+.animate-scale {
+    animation-name: scaleBackgroundColor;
+    animation-duration: 0.8s; /* Customize animation duration */
+    animation-timing-function: ease-in-out; /* Customize timing function */
+    animation-delay: 0.1s; /* Customize delay before animation starts */
+    animation-iteration-count: 1; /* Set to 1 for a single animation */
+    animation-fill-mode: forwards; /* Keep final state after animation ends */
+}
